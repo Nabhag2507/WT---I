@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCD</title>
+</head>
+<body>
+    <script>
+        let fn = parseInt(prompt("Enter first number :"));
+        let sn = parseInt(prompt("Enter second number :"));
+
+        let max = ((fn>sn) ? fn : sn);
+        
+        for(i=max;i>0;i--){
+            if((fn%i == 0) && (sn%i == 0)){
+                document.write(i+ " ");
+                break;
+            }
+        }
+    </script>
+</body>
+</html>

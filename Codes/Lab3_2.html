@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asending Order</title>
+</head>
+<body>
+    <script>
+        // selection method
+        let size = parseInt(prompt("Enter size of an array :"));
+
+        let arr = [];
+        for (i=0;i<size;i++){
+            arr[i] = parseInt(prompt("Enter element no "+(i+1)));
+        }
+        
+        for (i=0;i<size-1;i++){
+            min = i;
+            for(j=i+1;j<size;j++){
+                if(arr[j]<arr[min]){
+                    min = j;
+                }
+            }    
+            if(min != i){
+                temp = arr[i];
+                arr[i] = arr[min];
+                arr[min] = temp;
+            }
+        }
+
+        for (i=0;i<size;i++){
+            document.write(arr[i]+" ,")
+        }
+    </script>
+</body>
+</html>

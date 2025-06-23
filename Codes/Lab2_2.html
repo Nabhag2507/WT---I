@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime between range</title>
+</head>
+<body>
+    <script>
+        let fn = parseInt(prompt("Enter first number :"));
+        let sn = parseInt(prompt("Enter second number :"));
+
+        let max = ((fn>sn) ? fn : sn);
+        let min = ((fn<sn) ? fn : sn);
+
+        for(i=min;i<=max;i++){
+            let counter=0;
+            for(j=1;j<=i;j++){
+                if(i%j == 0){
+                    counter++;
+                }
+            }
+            if(counter == 2){
+                document.write(i+", ");
+            }
+        }
+    </script>
+</body>
+</html>

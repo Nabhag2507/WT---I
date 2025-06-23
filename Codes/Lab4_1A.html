@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta Name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>faculty table</title>
+</head>
+
+<body>
+    <script>
+        Faculty = [
+            fac1 = {
+                Name: "Dr.Gopi Sanghani",
+                Department: "Dean CSE",
+                Experience: 24,
+            },
+            fac2 = {
+                Name: "Dr.Nilesh Gambhava",
+                Department: "Professor",
+                Experience: 22,
+            },
+            fac3 = {
+                Name: "Arjun Bala",
+                Department: "Assistance Professor",
+                Experience: 15,
+            },
+            fac4 = {
+                Name: "Dixita Kagathara",
+                Department: "Assistant Professor",
+                Experience: 16,
+            }
+        ]
+
+        document.write("<table border ='1'>");
+        for (i = 0; i < Faculty.length; i++) {
+            document.write(`
+                    <tr>
+                        <td>${Faculty[i].Name}</td>
+                        <td>${Faculty[i].Department}</td>
+                        <td>${Faculty[i].Experience}</td>
+                    </tr>
+                `);
+        }
+        document.write("</table>");
+    </script>
+</body>
+
+</html>

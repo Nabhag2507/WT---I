@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number to Word</title>
+</head>
+
+<body>
+    <script>
+        const ones = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+        const teens = ["eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
+        const tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+
+        let word = "";
+
+        let n = parseInt(prompt("Enter any number :"));
+
+        if (n == 0) {
+            word = "zero";
+        } else if (n < 10) {
+            word = ones[n];
+        } else if (n >= 11 && n <= 19) {
+            word = teens[n - 11];
+        } else if (n < 100) {
+            word = tens[Math.floor(n / 10)];
+            if (n % 10 !== 0) {
+                word += "-" + ones[n % 10];
+            }
+        } else if (n >= 100 && n <= 999) {
+            word = ones[Math.floor(n / 100)] + " hundred";
+            let r = n % 100;
+            if (r > 0) {
+                word += " and ";
+                if (r < 10) {
+                    word += ones[r];
+                } else if (r >= 11 && r <= 19) {
+                    word += teens[r - 11];
+                } else {
+                    word += tens[Math.floor(r / 10)];
+                    if (r % 10 !== 0) {
+                        word += "-" + ones[r % 10];
+                    }
+                }
+            }
+        } else {
+            word = "Number out of range";
+        }
+
+        document.write(`<h2>${word}</h2>`);
+    </script>
+</body>
+
+</html>

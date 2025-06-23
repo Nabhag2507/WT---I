@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armstrong</title>
+</head>
+<body>
+    <script>
+        let n = parseInt(prompt("Enter any number :"));
+        let l =0,counter =0,temp=n,k=n;
+        while(n!=0){
+            l++;
+            n= Math.floor(n/10);
+        }
+
+        while(temp!=0){
+            let a = temp%10;
+            counter += Math.pow(a,l);
+            temp = Math.floor(temp/10); 
+        }
+
+        if(counter == k){
+            document.write("Number is armstrong");
+        }
+        else{
+            document.write("Number is not armstrong");
+        }
+    </script>
+</body>
+</html>
