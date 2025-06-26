@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Basic Calculator</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .calculator {
+      width: 350px;
+      height: 500px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #pannel {
+      width: 100%;
+      height: 50px;
+      font-size: 20px;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      flex-grow: 1;
+    }
+
+    button {
+      width: 100%;
+      height: 55px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(145deg, #00c6ff, #0072ff);
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(145deg, #0072ff, #00c6ff);
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="pannel" readonly>
+    <div class="buttons">
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button onclick="append('/')">/</button>
+
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button onclick="append('*')">*</button>
+
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button onclick="append('-')">-</button>
+
+      <button onclick="append('0')">0</button>
+      <button onclick="append('.')">.</button>
+      <button onclick="answer()">=</button>
+      <button onclick="append('+')">+</button>
+
+      <button onclick="clearPanel()">C</button>
+      <button onclick="Back()">Back</button>
+    </div>
+  </div>
+
+  <script>
+    function append(val) {
+      document.getElementById('pannel').value += val;
+    }
+
+    function answer() {
+      try {
+        const expression = document.getElementById("pannel").value;
+        const result = eval(expression);
+        document.getElementById("pannel").value = result;
+      } catch (error) {
+        document.getElementById("pannel").value = "Error";
+      }
+    }
+
+    function clearPanel() {
+      document.getElementById('pannel').value = '';
+    }
+
+    function Back() {
+      let a = document.getElementById("pannel").value;
+      document.getElementById('pannel').value = a.substring(0, a.length - 1);
+    }
+  </script>
+</body>
+</html>
