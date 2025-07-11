@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+
+<body class="p-1 bg-black" id="bd">
+    <p class="display-3 p-3 text-center border border-primary border-5 text-light" id="myPara">Student Attendance
+        Tracker</p>
+    <button class="btn btn-primary mx-2" onclick="allPresent()" id="myBtn">Present All</button>
+    <button class="btn btn-danger mx-2" onclick="reset()" id="rBtn">Reset Attendance</button>
+    <button class="btn btn-warning mx-2" onclick="saveAtd()" id="rBtn">Save Attendance</button>
+    <!--  -->
+    <div class="btn-group mx-2" role="group" aria-label="Roll Range Selection">
+        <input onclick="showFirst(event)" type="radio" class="btn-check" name="rollGroup" id="btnradio1"
+            autocomplete="off">
+        <label class="btn btn-outline-info" for="btnradio1" id="lab1">101 to 200</label>
+
+        <input onclick="showSecond(event)" type="radio" class="btn-check" name="rollGroup" id="btnradio2"
+            autocomplete="off">
+        <label class="btn btn-outline-info" for="btnradio2" id="lab2">201 to 280</label>
+    </div>
+    <!--  -->
+    <!-- Dark Mode Light Mode -->
+
+    <div class="btn-group float-end mx-5" role="group" aria-label="Theme Selection">
+        <input onclick="bgDark(event)" type="radio" class="btn-check" name="themeGroup" id="btnDark" autocomplete="off"
+            checked>
+        <label class="btn btn-outline-secondary" for="btnDark" id="dLab">Dark</label>
+
+        <input onclick="bgLight(event)" type="radio" class="btn-check" name="themeGroup" id="btnLight"
+            autocomplete="off">
+        <label class="btn btn-outline-secondary" for="btnLight" id="lLab">Light</label>
+    </div>
+    <!-- DM LM code Over -->
+    <p class="display-6 bg-secondary my-5 mt-5 p-3" id="dtime"></p>
+    <p class="display-6 bg-secondary my-5 mt-5 p-3" id="showA">Absent Numbers will be Displayed here</p>
+    <table class="table table-hover table-dark text-white bg-dark" id="t">
+    </table>
+
+    <script>
+        let myArr = [
+            "Jiya Kyada",
+            "Shah Dhvani Hitesh",
+            "Saraya Mohit Haresh",
+            "Zalavadiya Heet Siddharth",
+            "Darshil Dobariya",
+            "Nafisa Gandhi",
+            "Vasani Yashvi Niteshbhai",
+            "Delvadiya Manavkumar Kirtibhai",
+            "Ashara Palak Gopalbhai",
+            "Lunagariya Greshi Kamleshbhai",
+            "Nanavati Shrushti Gargesh",
+            "Ranpara Jay Manishbhai",
+            "Disha Mehta",
+            "Thummar Niraj Bhaveshbhai",
+            "Kachhava Nakul Umeshbhai",
+            "Kanabar Urva Darshanbhai",
+            "Nakar Dhruvil Hitesh",
+            "Poshiya Priyanshi Ajaybhai",
+            "Baravalia Dharitri Manharbhai",
+            "Muchhara Kashish Hiteshbhai",
+            "Chauhan Aditya Sureshbhai",
+            "Harsora Sakshi Ajaybhai",
+            "Katrodiya Sahil Rajeshbhai",
+            "Trambadiya Parikshit Parimalbhai",
+            "Padariya Preya Parasbhai",
+            "Gambhava Krushiben Manojbhai",
+            "Jadeja Vishwrajsinh Krushnasinh",
+            "Patel Jiya Sandipbhai",
+            "Pipalava Smit Ashvinbhai",
+            "Gohil Harshrajsinh Jitendrasinh",
+            "Kathiriya Arshi Keshubhai",
+            "Undhad Vishwa Rajesh",
+            "Diya Raiyani",
+            "Chavda Maulik Vinodbhai",
+            "Chavda Priyanka Prabodhbhai",
+            "Chavda Virendrasinh Ashwinbhai",
+            "Galani Krunal Chetanbhai",
+            "Kavar Suchi Vasantbhai",
+            "Odedara Nilesh Parbat",
+            "Vasani Dishita Nikhilkumar",
+            "Vachhani Vaishvi Manojkumar",
+            "Bhadania Ronit Yatinbhai",
+            "Chauhan Jenil Virenbhai",
+            "Virpara Krisha Rajeshbhai",
+            "Chandra Darshit Hiteshbhai",
+            "Detroja Ruchit Arvindbhai",
+            "Kapuriya Hepin Pravinbhai",
+            "Gohel Smit Ashvinbhai",
+            "Patel Kirtan Amitbhai",
+            "Ginoya Deep Kantilal",
+            "Marvaniya Jainish Dharmendrabhai",
+            "Ajudiya Yash Nareshbhai",
+            "Manas Borisagar",
+            "Joshi Soham Kamleshbhai",
+            "Kakadiya Khilan Manishbhai",
+            "Sidhdhapura Dhaval Dharmeshbhai",
+            "Sitapara Aryan Sunilbhai",
+            "Bhatasana Nainshi Pareshbhai",
+            "Malvaniya Viraj Jatinbhai",
+            "Tanisha Pambhar",
+            "Padshala Kuldeep Rajendrakumar",
+            "Bhimani Vishva Manishbhai",
+            "Karan Anushka Pintubhai",
+            "Vyas Kavya Sachin",
+            "Kamani Purna Hareshbhai",
+            "Mori Nandita Renishkumar",
+            "Ratanghayra Pankti Himanshu",
+            "Rupala Nikhil Kashmeeraben",
+            "Jadeja Shivrajsinh Girirajsinh",
+            "Hirva Satani",
+            "Raiyani Jenil Sanjaybhai",
+            "Chandpa Prince Sureshbhai",
+            "Faldu Vrajesh Sanjaybhai",
+            "Khambholiya Manya Parasharbhai",
+            "Prajapati Kaivalya Samir",
+            "Moral Aadit Shaileshbhai",
+            "Shihora Vibhu Chetanbhai",
+            "Kanani Kruti Jayeshbhai",
+            "Karoliya Princekumar Sandipbhai",
+            "Khunt Rutvi Hiteshbhai",
+            "Charadva Abhishek Virenbhai",
+            "Dave Krisha Kalpeshbhai",
+            "Janvi Kalaria",
+            "Rajwani Rohan Malik",
+            "Rana Parthrajsinh Bhupatsinh",
+            "Solanki Ronak Arvindbhai",
+            "Panchal Vedantkumar Niravbhai",
+            "Ambasana Venisha Hitenbhai",
+            "Raichura Smeet Rohitkumar",
+            "Gambhava Mirali Sureshbhai",
+            "Dave Dhruv Viralkumar",
+            "Ghetiya Ritu Pankajbhai",
+            "Radhanpara Saumya Jatinbhai",
+            "Yadav Gaurav Kaushikbhai",
+            "Buddhadev Misri Sanjaybhai",
+            "Joshi Kairav Paren",
+            "Savaliya Dhruvi Bharatbhai",
+            "Radhanpura Jeel Nimish",
+            "Savaliya Priyanshi Sureshbhai",
+            "Zala Bhavyadeepsinh Pruthvirajsinh",
+            "Sinha Milankumar Sujitkumar",
+            "Lakhtaria Kevin Homin",
+            "Moliya Kartavya Bhaveshbhai",
+            "Monpara Nij Hareshbhai",
+            "Divya Thakar",
+            "Mendapara Piyu Amishbhai",
+            "Pandya Karan Tusharbhai",
+            "Raval Meet Mohitkumar",
+            "Virpariya Heer Manishbhai",
+            "Bhanushali Hiral Bhaven",
+            "Kamaliya Akashkumar Rameshbhai",
+            "Popat Honey Nileshbhai",
+            "Badrakiya Meet Bharatbhai",
+            "Kanani Kavit Nareshbhai",
+            "Ambaliya Manan Jayeshbhai",
+            "Hinsu Umang Bharatbhai",
+            "Kakaniya Bhavy Niteshbhai",
+            "Padia Kartik Balkrishna",
+            "Mankada Hasan Shabbirhusain",
+            "Mehta Dhairy Kalpeshbhai",
+            "Mehta Het Lalitkumar",
+            "Kahan Sanghani",
+            "Gotani Himesh Sanjaybhai",
+            "Narola Yash Nileshbhai",
+            "Targata Dharmishtha Arjanbhai",
+            "Bhuva Tirth Shaileshbhai",
+            "Jadeja Yashraj Lakhdhirsinh",
+            "Krisha Pujara",
+            "Varsani Ritul Hirji",
+            "Parmar Dhyey Dharmendra",
+            "Shingala Mansi Rajeshbhai",
+            "Dobariya Jeel Upendrabhai",
+            "Khant Mannkumar Jigneshbhai",
+            "Yadav Neel Hiteshbhai",
+            "Andodariya Yash Maheshbhai",
+            "Hirani Jeelkumar Sanjaybhai",
+            "Mankad Shyamsundar Mitbhai",
+            "Agavan Rohan Farukbhai",
+            "Bhadja Zeel Satishkumar",
+            "Shreya Vijaybhai Bhundia",
+            "Aghara Keyur Hiteshbhai",
+            "Buddhadev Deep Nitinbhai",
+            "Godham Meet Maheshbhai",
+            "Katariya Trisha Ashvinbhai",
+            "Vekariya Jay Bipinbhai",
+            "Rutvi Gautami",
+            "Sankaliya Aryan Ashokbhai",
+            "Ghadiya Yashvi Sanjaybhai",
+            "Ved Chatvani",
+            "Ghorai Swati Sanjib",
+            "Karena Radhika Bharatbhai",
+            "Pandya Kruti Tusharbhai",
+            "Patel Tejkumar Niteshbhai",
+            "Sagpariya Mahee Nitinbhai",
+            "Sherasiya Shyam Sureshbhai",
+            "Liya Hirvita Rajendra",
+            "Ahir Krishna Manishbhai",
+            "Parmar Devanshu Gopalbhai",
+            "Tivari Astha Sureshbhai",
+            "Pal Kana Odedra",
+            "Sorathiya Nabhag Sanjaybhai",
+            "Chauhan Vishal Girishbhai",
+            "Kuchhadiya Vanita Bhima",
+            "Bhimani Naman Chiragbhai",
+            "Diyora Miraj Bhaveshbhai",
+            "Gajera Rakshit Ketanbhai",
+            "Parmar Darpan Jitendra",
+            "Trivedi Manan Vijaykumar",
+            "Dave Maharshi Kirtikumar",
+            "Param Rameshbhai Kotadiya",
+            "Patel Archi Pradipbhai",
+            "Saradhara Yug Vrajbhushanbhai",
+            "Padhariya Ruturajsinh Sureshbhai",
+            "Vegad Jenil Ashokbhai",
+            "Patani Kismatbanu Shahidbhai",
+            "Savaliya Jinesh Kantilal",
+            "Tank Darshan Chetanbhai",
+            "Ghodasara Dev Ketanbhai",
+            "Pithadiya Yash Devendrabhai",
+            "Gohel Jenil Amitkumar"
+        ];
+
+        let enrollmentNumbers = [
+            "24010101151", "24010101257", "24010101251", "24010101311", "24010101065",
+            "24010101076", "24010101299", "24010101056", "24010101008", "24010101158",
+            "24010101187", "24010101238", "24010101173", "24010101282", "24010101116",
+            "24010101124", "24010101186", "24010101223", "24010101013", "24010101184",
+            "24010101038", "24010101097", "24010101139", "24010101284", "24010101192",
+            "24010101074", "24010101107", "24010101214", "24010101219", "24010101091",
+            "24010101138", "24010101288", "24010101229", "24010101043", "24010101044",
+            "24010101045", "24010101072", "24010101140", "24010101190", "24010101298",
+            "24010101290", "24010101017", "24010101039", "24010101302", "24010101035",
+            "24010101057", "24010101131", "24010101090", "24010101215", "24010101085",
+            "24010101169", "24010101004", "24010101031", "24010101113", "24010101117",
+            "24010101265", "24010101267", "24010101021", "24010101163", "24010101197",
+            "24010101196", "24010101026", "24010101132", "24010101307", "24010101123",
+            "24010101183", "24010101239", "24010101242", "24010101106", "24010101252",
+            "24010101230", "24010101034", "24010101069", "24010101142", "24010101224",
+            "24010101182", "24010101260", "24010101126", "24010101135", "24010101146",
+            "24010101036", "24010101053", "24010101119", "24010101232", "24010101235",
+            "24010101271", "24010101198", "24010101006", "24010101228", "24010101075",
+            "24010101050", "24010101080", "24010101226", "24010101308", "24010101033",
+            "24010101112", "24010101253", "24010101227", "24010101255", "24010101310",
+            "24010101266", "24010101153", "24010101180", "24010101181", "24010101280",
+            "24010101177", "24010101199", "24010101241", "24010101303", "24010101020",
+            "24010101121", "24010101222", "24010101009", "24010101125", "24010101005",
+            "24010101099", "24010101118", "24010101195", "24010101166", "24010101172",
+            "24010101174", "24010101246", "24010101095", "24010101189", "24010101279",
+            "24010101030", "24010101108", "24010101225", "24010101296", "24010101208",
+            "24010101263", "24010101066", "24010101143", "24010101309", "24010101007",
+            "24010101101", "24010101165", "24010101001", "24010101018", "24010101028",
+            "24010101002", "24010101032", "24010101086", "24010101137", "24010101301",
+            "24010101077", "24010101247", "24010101078", "24010101037", "24010101084",
+            "24010101134", "24010101200", "24010101218", "24010101244", "24010101258",
+            "24010101157", "24010101003", "24010101206", "24010101283", "24010101191",
+            "24010101275", "24010101042", "24010101150", "24010101025", "24010101064",
+            "24010101071", "24010101205", "24010101285", "24010101055", "24010101148",
+            "24010101213", "24010101250", "24010101193", "24010101300", "24010101212",
+            "24010101254", "24010101277", "24010101081", "24010101221", "24010101088"
+        ];
+
+        function showFirst() {
+            let html = `
+        <tr>
+            <th>Roll No.</th>
+            <th>Student Name</th>
+            <th>Enrollment Number</th>
+            <th>Present/Absent</th>
+        </tr>
+    `;
+
+            for (let i = 0; i <= myArr.length - 81; i++) {
+                if (i == 52) {
+                    html += `
+        <tr>
+            <th class="display-6">${i + 101}</th>
+            <th class="display-6">${myArr[i]}</th>
+            <th class="display-6">${enrollmentNumbers[i]}</th>
+            <td><input type="checkbox" class="myClass" value="${i + 101}"></td>
+        </tr>
+        `;
+                }
+
+                html += `
+        <tr>
+            <td>${i + 101}</td>
+            <td>${myArr[i]}</td>
+            <td>${enrollmentNumbers[i]}</td>
+            <td><input type="checkbox" class="myClass" value="${i + 101}"></td>
+        </tr>
+        `;
+            }
+
+            document.getElementById("t").innerHTML = html;
+        }
+
+
+        function showSecond() {
+            let html = `
+        <tr>
+            <th>Roll No.</th>
+            <th>Student Name</th>
+            <th>Enrollment Number</th>
+            <th>Present/Absent</th>
+        </tr>
+    `;
+
+            for (let i = 100; i < myArr.length; i++) {
+                html += `
+        <tr>
+            <td>${i + 101}</td>
+            <td>${myArr[i]}</td>
+            <td>${enrollmentNumbers[i]}</td>
+            <td><input type="checkbox" class="myClass" value="${i + 101}"></td>
+        </tr>
+        `;
+            }
+
+            document.getElementById("t").innerHTML = html;
+        }
+
+        function allPresent() {
+            let ref = document.getElementsByClassName("myClass");
+            for (i = 0; i < ref.length; i++) {
+                ref[i].checked = true;
+            }
+        }
+
+        function reset() {
+            showA.innerHTML = "";
+            dtime.innerHTML = "";
+            let ref = document.getElementsByClassName("myClass");
+
+            for (i = 0; i < ref.length; i++) {
+                ref[i].checked = false;
+            }
+        }
+
+        function saveAtd() {
+            dateNew = new Date();
+            dtime.innerHTML = "Date : " + dateNew;
+            let presents = 0;
+            let absents = [];
+            let temp = document.getElementById("disp");
+            let ref = document.getElementsByClassName("myClass");
+            for (var i = 0; i < ref.length; i++) {
+                if (ref[i].checked == false) {
+                    absents.push(ref[i].value);
+                }
+            }
+
+            if (absents.length == 0) {
+                showA.innerHTML = "All Present";
+            }
+            else {
+                showA.innerHTML = "Absent Numbers : " + absents;
+            }
+        }
+
+        function bgLight(event) {
+            bd.className = "p-1 bg-light";
+            lLab.className = "btn btn-outline-black bg-secondary"
+            dLab.className = "btn btn-outline-black bg-black text-white"
+
+            lab1.className = "btn btn-outline-black bg-secondary"
+            lab2.className = "btn btn-outline-black bg-secondary"
+            myPara.className = "display-3 p-3 text-center border border-primary border-5 text-black"
+            t.className = "table table-hover table-success bg-black text-black"
+        }
+
+        function bgDark(event) {
+            bd.className = "p-1 bg-black";
+            lLab.className = "btn btn-outline-secondary"
+            dLab.className = "btn btn-outline-secondary"
+
+            lab1.className = "btn btn-outline-info"
+            lab2.className = "btn btn-outline-info"
+            myPara.className = "display-3 p-3 text-center border border-primary border-5 text-light"
+            t.className = "table table-hover table-dark text-white bg-dark";
+        }
+    </script>
+</body>
+
+</html>

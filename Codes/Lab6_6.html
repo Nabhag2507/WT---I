@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Registration Form</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #e0e7ff;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            width: 400px;
+            margin: 50px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #aaa;
+        }
+
+        input,
+        select {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 8px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form id="registrationForm">
+        <h2>Student Registration Form</h2>
+
+        <div class="error" id="errorMsg"></div>
+
+        <label>Full Name</label>
+        <input type="text" id="name" placeholder="Enter your name">
+
+        <label>Email</label>
+        <input type="text" id="email" placeholder="Enter your email">
+
+        <label>Password</label>
+        <input type="password" id="password">
+
+        <label>Confirm Password</label>
+        <input type="password" id="confirmPassword">
+
+        <label>Gender</label>
+        <select id="gender">
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <label>Course</label>
+        <input type="text" id="course" placeholder="E.g. BCA, MCA">
+
+        <label>Phone Number</label>
+        <input type="text" id="phone" placeholder="10-digit number">
+
+        <input type="submit" value="Register">
+    </form>
+
+    <script>
+        document.getElementById("registrationForm").onsubmit = function (event) {
+            event.preventDefault();
+
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            var gender = document.getElementById("gender").value;
+            var course = document.getElementById("course").value;
+            var phone = document.getElementById("phone").value;
+            var errorMsg = document.getElementById("errorMsg");
+
+            // Clear error message
+            errorMsg.innerHTML = "";
+
+            if (name == "" || email == "" || password == "" || confirmPassword == "" || gender == "" || course == "" || phone == "") {
+                errorMsg.innerHTML = "All fields are required.";
+                return;
+            }
+
+            if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
+                errorMsg.innerHTML = "Please enter a valid email.";
+                return;
+            }
+
+            if (password != confirmPassword) {
+                errorMsg.innerHTML = "Passwords do not match.";
+                return;
+            }
+
+            if (phone.length != 10 || isNaN(phone)) {
+                errorMsg.innerHTML = "Phone number must be 10 digits.";
+                return;
+            }
+
+            alert("Registration successful!");
+            document.getElementById("registrationForm").reset();
+        };
+    </script>
+
+</body>
+
+</html>

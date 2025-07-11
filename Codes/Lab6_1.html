@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color changing Button</title>
+    <style>
+        div{
+            display: flex;
+            justify-content: center;
+        }
+        #change{
+            background-color: aqua;
+            width: 200px;
+            height: 30px;
+            border: 2px solid rgb(15, 158, 137);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <button id="change" onclick="change()">change color</button>
+    </div>
+    <script>
+        
+        function change(){
+            r = Math.ceil(Math.random()*255);
+            g = Math.ceil(Math.random()*255);
+            b = Math.ceil(Math.random()*255);
+            document.querySelector("body").style.backgroundColor = `rgb(${r},${b},${g})`
+        }
+    </script>
+</body>
+
+</html>

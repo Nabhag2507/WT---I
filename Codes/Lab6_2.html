@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse event</title>
+</head>
+<body>
+    <button onclick="abc(event)">Click</button>
+    <button ondblclick="abc(event)">Double Click</button>
+    <button onmousedown="abc(event)">Mouse down</button>
+    <button onmouseenter="abc(event)">Mouse enter</button>
+    <button onmouseup="abc(event)">Mouse up</button>
+    <button onmousewheel="abc(event)">Mouse wheel</button>
+    <script>
+        function abc(e){
+            console.log(e.type);
+        }
+    </script>
+</body>
+</html>
