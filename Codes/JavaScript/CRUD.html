@@ -5,61 +5,229 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crud</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: #fff;
+        }
+
+        .container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #input {
+            padding: 12px 20px;
+            width: 60%;
+            max-width: 400px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            backdrop-filter: blur(10px);
+            outline: none;
+        }
+
+        #input::placeholder {
+            color: #ccc;
+        }
+
+        .submit {
+            padding: 12px 25px;
+            margin-left: 10px;
+            font-size: 16px;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .submit:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #new {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .table-container {
+            width: 90%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 12px;
+            text-align: center;
+            color: #fff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        td button {
+            padding: 8px 15px;
+            margin: 3px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            transition: 0.2s ease-in-out;
+        }
+
+        td button:nth-child(1) {
+            background-color: #00b894;
+            color: white;
+        }
+
+        td button:nth-child(1):hover {
+            background-color: #019875;
+        }
+
+        td button:nth-child(2) {
+            background-color: #d63031;
+            color: white;
+        }
+
+        td button:nth-child(2):hover {
+            background-color: #c0392b;
+        }
+
+        #error-box {
+            margin: 15px auto;
+            padding: 12px 20px;
+            width: fit-content;
+            max-width: 90%;
+            background-color: #ff4d4d;
+            color: white;
+            border-left: 6px solid #c0392b;
+            border-radius: 6px;
+            font-weight: 600;
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        @media (max-width: 600px) {
+            #input {
+                width: 80%;
+            }
+
+            .submit {
+                margin-top: 10px;
+                width: 80%;
+            }
+
+            td {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <input type="text" id="input">
-    </div>
-    <br>
-    <button class="submit" onclick="add()">submit</button>
-    <div id="new">
 
+    <div class="container">
+        <input type="text" id="input" placeholder="Enter student name">
+        <div id="error-box" style="display: none;"></div>
+        <button class="submit" onclick="add()">Submit</button>
     </div>
+
+    <div id="new"></div>
 
     <script>
         students = ["name1", "name2", "name3", "name4", "name5"];
         display();
 
-        function display(){
+        function display() {
             tempString = "";
-            tempString += (`<br><div style='border: 1px solid black;'>`)
-            tempString += (`<table border='1' cellpadding='10'>`)
+            tempString += (`<br><div class='table-container'>`);
+            tempString += (`<table border='0' cellpadding='10'>`);
             for (let i = 0; i < students.length; i++) {
                 tempString += (`
                     <tr>
                         <td>${students[i]}</td>
-                        <td><button onclick = edit(${i})>Edit</button></td>
-                        <td><button onclick = Delete(${i})>Delete</button></td>
+                        <td><button onclick="edit(${i})">Edit</button></td>
+                        <td><button onclick="Delete(${i})">Delete</button></td>
                     </tr>
                 `);
             }
-            tempString += (`</table>`)
-            tempString += (`</div>`)
-
+            tempString += (`</table></div>`);
             document.querySelector("#new").innerHTML = tempString;
         }
 
         function Delete(index) {
-            students.splice(index,1);
+            students.splice(index, 1);
             display();
         }
 
-        function add(){
-            a = document.getElementById("input").value;
-            if(idToEdit == -1){
+        function add() {
+            let a = document.getElementById("input").value.trim();
+            if (a === "") {
+                showError("Please enter a valid name!");
+                return;
+            }
+
+            if (idToEdit == -1) {
                 students.push(a);
-            }
-            else{
+            } else {
                 students[idToEdit] = a;
+                idToEdit = -1;
             }
+            document.getElementById("input").value = "";
             display();
         }
+
+        function showError(msg) {
+            const errorBox = document.getElementById("error-box");
+            errorBox.textContent = msg;
+            errorBox.style.display = "block";
+
+            setTimeout(() => {
+                errorBox.style.display = "none";
+            }, 3000);
+        }
+
 
         idToEdit = -1;
-        function edit(index){
+
+        function edit(index) {
             document.getElementById("input").value = students[index];
             idToEdit = index;
+            document.getElementById("input").focus();
         }
     </script>
 </body>
