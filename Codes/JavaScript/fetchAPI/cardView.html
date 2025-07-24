@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>First API fetch</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <style>
+    #loadDiv {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .student-card {
+      width: 18rem;
+    }
+  </style>
+</head>
+
+<body class="bg-light">
+
+  <div class="container my-4">
+    <button onclick="student()" class="btn btn-success mb-4">Load Students</button>
+    <div id="loadDiv"></div>
+  </div>
+
+  <script>
+    function student() {
+      const xhttp = new XMLHttpRequest();
+
+      xhttp.onload = function () {
+        const data = JSON.parse(this.responseText);
+        console.log(data);
+
+        const formattedStudents = data.map((temp) => {
+          return `
+            <div class="card student-card shadow">
+              <img src="${temp.avatar}" class="card-img-top" alt="Avatar">
+              <div class="card-body">
+                <h5 class="card-title">${temp.name}</h5>
+                <a href="#" class="btn btn-primary">${temp.rollno}</a>
+              </div>
+            </div>`;
+        });
+
+        document.getElementById("loadDiv").innerHTML = formattedStudents.join("");
+      }
+
+      xhttp.open("GET", "https://68550a436a6ef0ed6631045a.mockapi.io/students", true);
+      xhttp.send();
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

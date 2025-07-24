@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First API fetch</title>
+</head>
+<body>
+
+    <button onclick="student()">Load students</button>
+    <div id="loadDiv"></div>
+
+    <script>
+        function student(){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function(){
+                data = JSON.parse(this.responseText);
+                console.log(data);
+                formatedStudents = data.map((temp)=>{
+                    let ans = `<tr>
+                        <td>${temp.name}</td>
+                        <td><img src = '${temp.avatar}' width = '100'></td>
+                        <td>${temp.rollno}</td>
+                    </tr>`
+                    return ans;
+                });
+                document.getElementById("loadDiv").innerHTML = "<table border = '1'><th>Name</th><th>Image</th><th>Roll no</th>" + formatedStudents.join("")+ "</table>"
+            }
+
+            xhttp.open("GET","https://68550a436a6ef0ed6631045a.mockapi.io/students",true);
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>
