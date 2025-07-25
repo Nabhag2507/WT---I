@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam asperiores at ex. Assumenda dolor reprehenderit autem, possimus odit omnis tempora? Ut aliquam sequi provident est accusantium iusto, cum nobis quasi?Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus excepturi numquam nostrum sed pariatur impedit facilis, magni eveniet ab mollitia sit ipsum praesentium tempore molestias deserunt eos ex repudiandae ea.</p>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>    
+
+    <script>
+        isRed = false;
+        $(document).ready(function(){
+            $("body p").mouseenter(function(){
+                if(!isRed){
+                    $(this).css({backgroundColor: "red"});
+                    isRed = true;
+                }
+                else{
+                    $(this).css({backgroundColor: ""});
+                    isRed = false;
+                }
+            });
+        });
+        $(document).ready(function(){
+            $("body p").mouseout(function(){
+                if(!isRed){
+                    $(this).css({backgroundColor: "red"});
+                    isRed = true;
+                }
+                else{
+                    $(this).css({backgroundColor: ""});
+                    isRed = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
