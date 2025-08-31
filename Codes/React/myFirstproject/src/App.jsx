@@ -4,6 +4,7 @@ import Cls from './demoClassComponent'
 import PropsDemo from './Lab17_1'
 import eventHandlingDemo from './Lab17_2'
 import MapDemo from './Lab18_1'
+import CmpA from './propertyDrilling/CmpA'
 
 function App() {
   const isDisplay = false;
@@ -26,11 +27,14 @@ function App() {
           {/* {isDisplay ? <h1>isDisplay is true</h1> : <h1>isDisplay is false</h1>} */}
 
       {/* this is lab 18 1 */}
-          <div className="container">
+          {/* <div className="container">
             <div className="row">
                 <MapDemo/>
             </div>
-          </div>
+          </div> */}
+
+      {/* property drilling */}
+          <CmpA name="Nabhag"/>
     </>
   );
 }
