@@ -10,7 +10,7 @@ function Login(props) {
     const success = props.login(username, password);
 
     if(!success){
-      setError("??????????????");
+      setError("Invalid username or password");
     }
   }
   return (
