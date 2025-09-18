@@ -13,6 +13,7 @@ function StudentsPage() {
 
     return (
         <>
+            <Link to={`student/add`} className='btn btn-success ms-4'>Add student</Link>
             <table width={1000}>
                 <tr>
                     <th>name</th>
@@ -30,6 +31,7 @@ function StudentsPage() {
                             <td>{stu.city}</td>
                             <td>{stu.id}</td>
                             <td><Link className='btn btn-primary' to={`students/${stu.id}`}>View Details</Link></td>
+                            <td><Link className='btn btn-info' to={`students/edit/${stu.id}`}>Edit</Link></td>
                         </tr>
                     ))
                 }
